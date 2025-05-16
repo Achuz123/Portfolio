@@ -140,7 +140,7 @@ const ContactSection = () => {
               </p>
             </div>
             <a
-              href="src/components/ACHUTH B.pdf"
+              href="/ACHUTH B.pdf"
               className="inline-flex items-center justify-center px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg shadow-md hover:bg-blue-50 hover:text-blue-800 transition-colors duration-300 self-start"
               download
             >
