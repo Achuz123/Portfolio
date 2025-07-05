@@ -174,19 +174,6 @@ const AboutSection = () => {
             </ul>
           </motion.div>
         </motion.div>
-
-        {/* Download Resume Button */}
-        <div className="mt-12 text-center">
-          <motion.button
-            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-colors duration-300"
-            onClick={handleDownloadResume}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Download className="h-5 w-5 mr-2" />
-            Download Resume
-          </motion.button>
-        </div>
       </div>
     </section>
   );
