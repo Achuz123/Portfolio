@@ -8,24 +8,9 @@ export const NAV_LINKS = [
 ];
 
 export const SKILLS = {
-  languages: [
-    "JavaScript",
-    "TypeScript",
-    "Python",
-    "Java",
-    "C++",
-    "HTML/CSS",
-    "SQL",
-  ],
-  frameworks: [
-    "React",
-    "Node.js",
-    "Express.js",
-    "Next.js",
-    "TailwindCSS",
-    "Bootstrap",
-  ],
-  tools: ["Git", "Docker", "AWS", "Firebase", "MongoDB", "PostgreSQL", "Redis"],
+  languages: ["JavaScript", "Python", "Java", "C++", "HTML/CSS", "SQL"],
+  frameworks: ["React", "Node.js", "Express.js", "TailwindCSS", "Bootstrap"],
+  tools: ["Git", "AWS", "Firebase", "MongoDB"],
   security: [
     "Cryptography",
     "Network Security",
@@ -38,7 +23,7 @@ export const SKILLS = {
     "Data Structures",
     "Algorithms",
     "System Design",
-    "CI/CD",
+
     "Agile Methodology",
   ],
 };
