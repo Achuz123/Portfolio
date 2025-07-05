@@ -45,6 +45,16 @@ export const SKILLS = {
 
 export const PROJECTS = [
   {
+    title: "Screenly – Movie Ticket Booking Web App",
+    description:
+      "A full-stack MERN application that allows users to browse movies, select showtimes, pick seats, and book tickets. Admins can manage movies, theatres, and bookings via a dedicated dashboard.",
+    tags: ["MERN", "React.js", "Node.js", "MongoDB", "JWT", "Tailwind CSS"],
+    imageUrl:
+      "https://images.pexels.com/photos/7991372/pexels-photo-7991372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    link: "https://screeenly.netlify.app/",
+  },
+
+  {
     title: "Cryptography & Steganography Tool",
     description:
       "A comprehensive tool that combines cryptographic algorithms with steganography techniques for secure data hiding and encryption.",
