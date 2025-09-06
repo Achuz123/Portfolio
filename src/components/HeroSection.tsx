@@ -131,7 +131,7 @@ const HeroSection = () => {
           >
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-slate-700 shadow-xl">
               <img
-                src="/img.jpg"
+                src="dist/img.jpg"
                 alt="Achuth B"
                 className="w-full h-full object-cover"
               />
