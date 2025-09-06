@@ -130,7 +130,7 @@ const ContactSection = () => {
               </p>
             </div>
             <a
-              href="/ACHUTH B.pdf"
+              href="/achuthb.pdf"
               download
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-violet-700 font-bold rounded-lg shadow-md hover:bg-slate-200 transition-colors self-start"
             >
