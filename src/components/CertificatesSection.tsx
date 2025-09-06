@@ -1,122 +1,105 @@
-import { motion, Variants } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { Award, Download } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { CERTIFICATES } from "../constants";
+import { ChevronDown, Award } from "lucide-react";
 
-const CertificateCard = ({
-  title,
-  issuer,
-  date,
-}: {
-  title: string;
-  issuer: string;
-  date: string;
-}) => {
-  // Card animation variants
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 30, rotate: 2 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotate: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
-  return (
-    <motion.div
-      className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-100"
-      variants={cardVariants}
-      whileHover={{ scale: 1.03, rotate: -1, transition: { duration: 0.3 } }}
-    >
-      <div className="flex items-center mb-3">
-        <div className="bg-blue-100 p-2 rounded-full mr-3">
-          <Award className="h-5 w-5 text-blue-600" />
-        </div>
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-      </div>
-      <p className="text-gray-600 mb-2">{issuer}</p>
-      <p className="text-sm text-gray-500">{date}</p>
-    </motion.div>
-  );
-};
+// First, we group the certificates by their issuer to create the accordion sections.
+const groupedCertificates = CERTIFICATES.reduce((acc, cert) => {
+  (acc[cert.issuer] = acc[cert.issuer] || []).push(cert);
+  return acc;
+}, {} as Record<string, typeof CERTIFICATES>);
 
 const CertificatesSection = () => {
-  // Hook for scroll-triggered animations
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
-
-  // Handle download certificates (placeholder)
-  const handleDownloadCertificates = () => {
-    window.open("/path-to-certificates.pdf", "_blank");
-  };
+  // This state keeps track of which accordion section is currently open.
+  // We'll set the first one ('EC-Council') to be open by default.
+  const [expanded, setExpanded] = useState<string | false>("EC-Council");
 
   return (
-    <section
-      id="certificates"
-      className="py-20 bg-gradient-to-b from-white to-gray-100 relative overflow-hidden"
-    >
-      {/* Subtle Background Animation */}
-      <motion.div
-        className="absolute inset-0 bg-blue-50 opacity-10"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.1 }}
-        transition={{
-          duration: 2,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto px-6 relative">
-        {/* Section Header with Animated Underline */}
-        <div className="mb-12 text-center">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            Certificates
-          </motion.h2>
-          <motion.div
-            className="w-20 h-1 bg-blue-600 mx-auto mb-6"
-            initial={{ width: 0 }}
-            animate={{ width: 80 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-          ></motion.div>
-          <motion.p
-            className="max-w-2xl mx-auto text-gray-600"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Showcasing {CERTIFICATES.length} professional certifications that
-            validate my expertise in cybersecurity, development, and more.
-          </motion.p>
-        </div>
-
-        {/* Masonry Grid Layout for Certificates */}
+    <section id="certificates" className="py-20 bg-slate-900 text-white">
+      <div className="max-w-4xl mx-auto px-6">
+        {/* Section Header */}
         <motion.div
-          ref={ref}
-          className="columns-1 md:columns-2 lg:columns-3 gap-8"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-          }}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-center mb-16"
         >
-          {CERTIFICATES.map((cert) => (
-            <div key={cert.title} className="mb-8 break-inside-avoid">
-              <CertificateCard
-                title={cert.title}
-                issuer={cert.issuer}
-                date={cert.date}
-              />
-            </div>
-          ))}
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Certificates & Credentials
+          </h2>
+          <div className="w-20 h-1 bg-violet-500 mx-auto"></div>
         </motion.div>
+
+        {/* Accordion container */}
+        <div className="space-y-4">
+          {Object.entries(groupedCertificates).map(([issuer, certs]) => {
+            const isOpen = issuer === expanded;
+            return (
+              <motion.div
+                key={issuer}
+                className="bg-slate-800/50 rounded-xl border border-slate-700 backdrop-blur-lg overflow-hidden"
+                initial={{ borderRadius: 12 }}
+              >
+                <motion.header
+                  initial={false}
+                  onClick={() => setExpanded(isOpen ? false : issuer)}
+                  className="flex justify-between items-center p-6 cursor-pointer"
+                >
+                  <h3 className="text-xl font-semibold text-slate-100">
+                    {issuer}
+                  </h3>
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown size={24} />
+                  </motion.div>
+                </motion.header>
+
+                {/* AnimatePresence handles the smooth expand and collapse animations */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.section
+                      key="content"
+                      initial="collapsed"
+                      animate="open"
+                      exit="collapsed"
+                      variants={{
+                        open: { opacity: 1, height: "auto" },
+                        collapsed: { opacity: 0, height: 0 },
+                      }}
+                      transition={{
+                        duration: 0.4,
+                        ease: [0.04, 0.62, 0.23, 0.98],
+                      }}
+                      className="px-6 pb-6"
+                    >
+                      <ul className="space-y-4 pt-4 border-t border-slate-700">
+                        {certs.map((cert) => (
+                          <li
+                            key={cert.title}
+                            className="flex items-start gap-4"
+                          >
+                            <Award className="h-5 w-5 text-violet-400 mt-1 flex-shrink-0" />
+                            <div>
+                              <p className="font-medium text-slate-200">
+                                {cert.title}
+                              </p>
+                              <p className="text-sm text-slate-400">
+                                {cert.date}
+                              </p>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.section>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

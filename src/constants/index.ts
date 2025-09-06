@@ -8,24 +8,18 @@ export const NAV_LINKS = [
 ];
 
 export const SKILLS = {
-  languages: ["JavaScript", "Python", "Java", "C++", "HTML/CSS", "SQL"],
-  frameworks: ["React", "Node.js", "Express.js", "TailwindCSS", "Bootstrap"],
-  tools: ["Git", "AWS", "Firebase", "MongoDB"],
-  security: [
-    "Cryptography",
-    "Network Security",
-    "Penetration Testing",
-    "Security Auditing",
-    "Vulnerability Assessment",
+  languages: ["JavaScript", "Java", "HTML5", "CSS3", "SQL"],
+  frameworks: ["React", "Node.js", "Express.js", "Tailwind CSS"],
+  devops: [
+    "Docker",
+    "Ansible",
+    "Jenkins",
+    "Git",
+    "Kubernetes",
+    "Terraform",
+    "Open Source Contributions",
   ],
-  other: [
-    "Machine Learning",
-    "Data Structures",
-    "Algorithms",
-    "System Design",
-
-    "Agile Methodology",
-  ],
+  cloudAndDB: ["AWS", "MongoDB"],
 };
 
 export const PROJECTS = [
@@ -36,7 +30,7 @@ export const PROJECTS = [
     tags: ["MERN", "React.js", "Node.js", "MongoDB", "JWT", "Tailwind CSS"],
     imageUrl:
       "https://images.pexels.com/photos/7991372/pexels-photo-7991372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    link: "https://screeenly.netlify.app/",
+    link: "https://github.com/Achuz123/BOOKING-APP",
   },
 
   {
@@ -59,8 +53,7 @@ export const PROJECTS = [
   },
   {
     title: "Cypics",
-    description:
-      "A secure photo storage application with encrypted cloud backups and privacy-focused sharing capabilities.",
+    description: "A centralized emergency reporting app.",
     tags: ["Flutter", "Kotlin", "Firebase"],
     imageUrl:
       "https://images.pexels.com/photos/193003/pexels-photo-193003.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
